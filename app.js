@@ -37,7 +37,7 @@ router.get('/luis/:version/apps/:app_id', async(ctx, next) => {
         qs: ctx.query,
         json: true
     }, (err, res, json) => {
-        console.log('debug');
+        console.log(json);
         ctx.body = json;
     });
     await next();
