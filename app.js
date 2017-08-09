@@ -14,7 +14,16 @@ const app = new Koa();
 const router = new Router();
 
 router.get('/luis/query', ctx => {
-    ctx.body = 'success';
+    Request({
+        uri: `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/61ef41a0-b9c4-483c-b787-c13bacd90e13`,
+        qs: ctx.query,
+        headers: ctx.header,
+        json: true
+    }).then(res => {
+        ctx.body = res;
+    }).catch(() => {
+        ctx.body = {};
+    });
 });
 
 router.get('/luis/:version/apps/:app_id', ctx => {
