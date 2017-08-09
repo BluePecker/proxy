@@ -13,6 +13,10 @@ import Request from 'request-promise';
 const app = new Koa();
 const router = new Router();
 
+router.get('/luis/query', ctx => {
+    ctx.body = 'success';
+});
+
 router.get('/luis/:version/apps/:app_id', ctx => {
     /**
      * @typedef {{params:{app_id:string}}} ctx
