@@ -3,7 +3,7 @@
  */
 import Koa from 'koa';
 import Router from 'koa-router';
-import Request from 'request-promise';
+import Request from 'request';
 
 /**
  * @typedef {object} app
@@ -31,17 +31,14 @@ router.get('/luis/:version/apps/:app_id', ctx => {
      * @typedef {{params:{app_id:string}}} ctx
      * @typedef {{then:function}} Request
      */
-    ctx.body = ctx.query;
-    // Request({
-    //     uri: `https://westus.api.cognitive.microsoft.com/luis/${ctx.params.version}/apps/${ctx.params.app_id}`,
-    //     qs: ctx.query,
-    //     headers: ctx.header,
-    //     json: true
-    // }).then(res => {
-    //     ctx.body = res;
-    // }).catch(() => {
-    //     ctx.body = {};
-    // });
+    console.log(`https://westus.api.cognitive.microsoft.com/luis/${ctx.params.version}/apps/${ctx.params.app_id}`);
+    Request.get({
+        url: `https://westus.api.cognitive.microsoft.com/luis/${ctx.params.version}/apps/${ctx.params.app_id}`,
+        qs: ctx.query,
+        json: true
+    }, (err , res, json) => {
+        ctx.body = json;
+    });
 });
 
 app.use(router.routes(), router.allowedMethods());
