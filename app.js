@@ -32,7 +32,7 @@ router.get('/luis/:version/apps/:app_id', async(ctx, next) => {
      * @typedef {{then:function}} Request
      */
     console.log(`https://westus.api.cognitive.microsoft.com/luis/${ctx.params.version}/apps/${ctx.params.app_id}`);
-    Request.get({
+    await Request.get({
         url: `https://westus.api.cognitive.microsoft.com/luis/${ctx.params.version}/apps/${ctx.params.app_id}`,
         qs: ctx.query,
         json: true
