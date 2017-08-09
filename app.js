@@ -26,21 +26,21 @@ router.get('/luis/query', ctx => {
     });
 });
 
-router.get('/luis/:version/apps/:app_id', async(ctx, next) => {
+router.get('/luis/:version/apps/:app_id', (ctx, next) => {
     /**
      * @typedef {{params:{app_id:string}}} ctx
      * @typedef {{then:function}} Request
      */
     console.log(`https://westus.api.cognitive.microsoft.com/luis/${ctx.params.version}/apps/${ctx.params.app_id}`);
-    await Request.get({
+    Request.get({
         url: `https://westus.api.cognitive.microsoft.com/luis/${ctx.params.version}/apps/${ctx.params.app_id}`,
         qs: ctx.query,
         json: true
     }, (err, res, json) => {
         console.log(json);
         ctx.body = json;
+        next();
     });
-    await next();
 });
 
 app.use(router.routes(), router.allowedMethods());
